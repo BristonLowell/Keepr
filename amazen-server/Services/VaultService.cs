@@ -8,31 +8,31 @@ namespace amazen_server.Services
 {
   public class VaultService
   {
-    private readonly VaultRepository _gr;
+    private readonly VaultRepository _vr;
 
-    public VaultService(VaultRepository gr)
+    public VaultService(VaultRepository vr)
     {
-      _gr = gr;
+      _vr = vr;
     }
     public IEnumerable<Vault> GetAll()
     {
-      return _gr.GetAll();
+      return _vr.GetAll();
     }
 
     public Vault GetById(int id)
     {
-      return _gr.GetById(id);
+      return _vr.GetById(id);
     }
 
     public Vault Create(Vault newVault)
     {
-      return _gr.Create(newVault);
+      return _vr.Create(newVault);
     }
 
     public string Delete(int id)
     {
       string Deleted = "Vault Deleted";
-      bool deletedVault = _gr.Delete(id);
+      bool deletedVault = _vr.Delete(id);
       if (deletedVault)
       {
         return Deleted;
@@ -43,7 +43,7 @@ namespace amazen_server.Services
 
     public Vault Edit(int id, Vault editedVault)
     {
-      Vault oldVault = _gr.GetById(id);
+      Vault oldVault = _vr.GetById(id);
 
 
       //NOTE looping through an object and compares
@@ -73,7 +73,7 @@ namespace amazen_server.Services
       // }
       // oldVault = editedVault;
 
-      return _gr.Edit(id, oldVault);
+      return _vr.Edit(id, oldVault);
     }
   }
 }

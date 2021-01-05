@@ -62,6 +62,11 @@ namespace amazen-server
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "amazen-server", Version = "v1" });
             });
+            services.AddScoped<IDbConnection>(x => CreateDbConnection());
+            services.AddTransient<VaultService>();
+            services.AddTransient<VaultRepository>();
+            services.AddTransient<KeepService>();
+            services.AddTransient<KeepRepository>();
 
             // REVIEW Do you want to do something here?
 
