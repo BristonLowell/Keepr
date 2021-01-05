@@ -9,23 +9,23 @@ namespace amazen_server.Controllers
 
   [ApiController]
   [Route("api/[controller]")]
-  public class VaultController : ControllerBase
+  public class KeepController : ControllerBase
   {
-    private readonly VaultService _vs;
+    private readonly KeepService _ks;
 
-    public VaultController(VaultService vs)
+    public KeepController(KeepService ks)
     {
-      _vs = vs;
+      _ks = ks;
     }
 
 
     [HttpGet]
 
-    public ActionResult<IEnumerable<Vault>> GetAll()
+    public ActionResult<IEnumerable<Keep>> GetAll()
     {
       try
       {
-        return Ok(_vs.GetAll());
+        return Ok(_ks.GetAll());
       }
       catch (System.Exception err)
       {
@@ -36,11 +36,11 @@ namespace amazen_server.Controllers
 
     // [HttpGet("{id}")]
 
-    // public ActionResult<Vault> GetById(int id)
+    // public ActionResult<Keep> GetById(int id)
     // {
     //   try
     //   {
-    //     return Ok(_vs.GetById(id));
+    //     return Ok(_ks.GetById(id));
     //   }
     //   catch (System.Exception err)
     //   {
@@ -52,11 +52,11 @@ namespace amazen_server.Controllers
 
     [HttpPost]
 
-    public ActionResult<Vault> Create([FromBody] Vault newVault)
+    public ActionResult<Keep> Create([FromBody] Keep newKeep)
     {
       try
       {
-        return Ok(_vs.Create(newVault));
+        return Ok(_ks.Create(newKeep));
       }
       catch (System.Exception err)
       {
@@ -71,7 +71,7 @@ namespace amazen_server.Controllers
     // {
     //   try
     //   {
-    //     return Ok(_vs.Delete(id));
+    //     return Ok(_ks.Delete(id));
     //   }
     //   catch (System.Exception err)
     //   {
@@ -82,11 +82,11 @@ namespace amazen_server.Controllers
 
     // [HttpPut("{id}")]
 
-    // public ActionResult<Vault> Edit(int id, [FromBody] Vault editedVault)
+    // public ActionResult<Keep> Edit(int id, [FromBody] Keep editedKeep)
     // {
     //   try
     //   {
-    //     return Ok(_vs.Edit(id, editedVault));
+    //     return Ok(_ks.Edit(id, editedKeep));
     //   }
     //   catch (System.Exception err)
     //   {
