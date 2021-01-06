@@ -1,5 +1,6 @@
 using amazen_server.Models;
 using amazen_server.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -51,6 +52,7 @@ namespace amazen_server.Controllers
 
 
     [HttpPost]
+    [Authorize]
 
     public ActionResult<Vault> Create([FromBody] Vault newVault)
     {

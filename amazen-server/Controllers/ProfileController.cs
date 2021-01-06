@@ -12,16 +12,18 @@ using amazen_server.Services;
 namespace amazen_server.Controllers
 {
   [ApiController]
-  [Route("[controller]")]
+  [Route("api/[controller]")]
   public class ProfileController : ControllerBase
   {
     private readonly ProfileService _ps;
     private readonly VaultService _vs;
+    private readonly KeepService _ks;
 
-    public ProfileController(ProfileService ps, VaultService vs)
+    public ProfileController(ProfileService ps, VaultService vs, KeepService ks)
     {
       _ps = ps;
       _vs = vs;
+      _ks = ks;
     }
 
     [HttpGet]

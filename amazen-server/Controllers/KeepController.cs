@@ -1,5 +1,7 @@
 using amazen_server.Models;
 using amazen_server.Services;
+using CodeWorks.Auth0Provider;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -51,17 +53,21 @@ namespace amazen_server.Controllers
 
 
     [HttpPost]
+    [Authorize]
 
-    public ActionResult<Keep> Create([FromBody] Keep newKeep)
+    public async Task<ActionResult<Keep>> Create([FromBody] Keep newKeep)
     {
       try
       {
-        return Ok(_ks.Create(newKeep));
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        newKeep.CreatorId = userInfo.Id;
+        Keep created = _ks.Create(newKeep);
+        created.Creator = userInfo;
+        return Ok(created);
       }
-      catch (System.Exception err)
+      catch (System.Exception e)
       {
-
-        return BadRequest(err);
+        return BadRequest(e.Message);
       }
     }
 

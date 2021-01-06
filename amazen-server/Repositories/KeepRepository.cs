@@ -21,7 +21,7 @@ namespace amazen_server.Repositories
 
     public IEnumerable<Keep> GetAll()
     {
-      string sql = populateCreator + "WHERE isPrivate = 1";
+      string sql = populateCreator;
       return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) => { keep.Creator = profile; return keep; }, splitOn: "id");
     }
 
@@ -35,9 +35,9 @@ namespace amazen_server.Repositories
     public Keep Create(Keep newKeep)
     {
       string sql = @"INSERT INTO keeps
-      (name, description, isPrivate, creatorId)
+      (name, description, img, views, shares, keeps, creatorId)
       VALUES
-      (@Name, @Description, @IsPrivate, @CreatorId);
+      (@Name, @Description, @Img,  @Views, @Shares, @Keeps, @CreatorId);
       SELECT LAST_INSERT_ID();";
       newKeep.Id = _db.ExecuteScalar<int>(sql, newKeep);
       return newKeep;

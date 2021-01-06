@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using amazen_server.Repositories;
+using amazen_server.Services;
 using CodeWorks.Auth0Provider;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -63,10 +65,14 @@ namespace amazen_server
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "amazen-server", Version = "v1" });
       });
       services.AddScoped<IDbConnection>(x => CreateDbConnection());
-      // services.AddTransient<VaultService>();
-      // services.AddTransient<VaultRepository>();
-      // services.AddTransient<KeepService>();
-      // services.AddTransient<KeepRepository>();
+      services.AddTransient<VaultService>();
+      services.AddTransient<VaultRepository>();
+      services.AddTransient<KeepService>();
+      services.AddTransient<KeepRepository>();
+      services.AddTransient<ProfileService>();
+      services.AddTransient<ProfileRepository>();
+      services.AddTransient<VaultKeepService>();
+      services.AddTransient<VaultKeepRepository>();
 
       // REVIEW Do you want to do something here?
 
