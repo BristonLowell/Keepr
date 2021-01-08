@@ -9,11 +9,11 @@ namespace amazen_server.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class VaultKeepController : ControllerBase
+  public class VaultKeepsController : ControllerBase
   {
     private readonly VaultKeepService _vks;
 
-    public VaultKeepController(VaultKeepService vks)
+    public VaultKeepsController(VaultKeepService vks)
     {
       _vks = vks;
     }
@@ -42,6 +42,23 @@ namespace amazen_server.Controllers
       {
         Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
         return Ok(_vks.Delete(id, userInfo.Id));
+      }
+      catch (System.Exception e)
+      {
+
+        return BadRequest(e.Message);
+
+      }
+    }
+
+    [Authorize]
+    [HttpDelete("{id}/all")]
+    public async Task<ActionResult<string>> DeleteAll(int id)
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_vks.DeleteAll(id, userInfo.Id));
       }
       catch (System.Exception e)
       {

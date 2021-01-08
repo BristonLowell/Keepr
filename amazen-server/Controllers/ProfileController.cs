@@ -41,19 +41,34 @@ namespace amazen_server.Controllers
       }
     }
 
-    // [HttpGet("{id}/blogs")]
-    // public async Task<ActionResult<Profile>> GetVaultsByProfile(string id)
-    // {
-    //   try
-    //   {
-    //     Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
-    //     return Ok(_vs.GetVaultsByProfile(id, userInfo?.Id));
-    //   }
-    //   catch (System.Exception e)
-    //   {
-    //     return BadRequest(e.Message);
-    //   }
+    [HttpGet("{id}/vaults")]
+    public async Task<ActionResult<Profile>> GetVaultsByProfile(string id)
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_vs.GetVaultsByProfile(id, userInfo?.Id));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
 
-    // }
+    }
+
+    [HttpGet("{id}/keeps")]
+    public async Task<ActionResult<Profile>> GetKeepsByProfile(string id)
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_ks.GetKeepsByProfile(id, userInfo?.Id));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+
+    }
   }
 }

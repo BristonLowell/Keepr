@@ -25,6 +25,17 @@ namespace amazen_server.Repositories
       return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) => { keep.Creator = profile; return keep; }, splitOn: "id");
     }
 
+    public IEnumerable<Keep> getKeepsByProfile(string profId)
+    {
+      string sql = @"
+        SELECT
+        keep.*,
+        p.*
+        FROM keeps keep
+        JOIN profiles p ON keep.creatorId = p.id
+        WHERE keep.creatorId = @profId; ";
+      return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) => { keep.Creator = profile; return keep; }, new { profId }, splitOn: "id");
+    }
 
     // public IEnumerable<Keep> GetAll()
     // {
@@ -43,24 +54,33 @@ namespace amazen_server.Repositories
       return newKeep;
     }
 
-    // public Keep GetById(int id)
-    // {
-    //   string sql = "SELECT * FROM keeps WHERE id = @Id";
-    //   return _db.QueryFirstOrDefault<Keep>(sql, new { id });
-    // }
+    public Keep GetById(int id)
+    {
+      string sql = "SELECT * FROM keeps WHERE id = @Id";
+      return _db.QueryFirstOrDefault<Keep>(sql, new { id });
+    }
 
-    // public bool Delete(int id)
-    // {
-    //   string sql = "DELETE FROM keeps WHERE id = @Id LIMIT 1";
-    //   int affectedRows = _db.Execute(sql, new { id });
-    //   return affectedRows > 0;
-    // }
+    public bool Delete(int id)
+    {
+      string sql = "DELETE FROM keeps WHERE id = @Id LIMIT 1";
+      int affectedRows = _db.Execute(sql, new { id });
+      return affectedRows > 0;
+    }
 
-    // public Keep Edit(int id, Keep editedKeep)
-    // {
-    //   string sql = @"UPDATE keeps SET name = @Name, meat = @Meat, buns = @Buns, sauce = @sauce WHERE id = @Id;
-    //   SELECT * FROM burger WHERE id = @Id";
-    //   return _db.QueryFirstOrDefault<Keep>(sql, new { id });
-    // }
+    public void Edit(Keep editData)
+    {
+      string sql = @"
+        UPDATE keeps
+        SET
+        name = @Name,
+        description = @Description,
+        shares = @Shares,
+        views = @Views,
+        keeps = @Keeps,
+        img = @Img,
+        creatorId = @CreatorId
+        WHERE id = @Id;";
+      _db.Execute(sql, editData);
+    }
   }
 }

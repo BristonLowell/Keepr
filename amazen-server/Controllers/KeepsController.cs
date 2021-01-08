@@ -11,11 +11,11 @@ namespace amazen_server.Controllers
 
   [ApiController]
   [Route("api/[controller]")]
-  public class KeepController : ControllerBase
+  public class KeepsController : ControllerBase
   {
     private readonly KeepService _ks;
 
-    public KeepController(KeepService ks)
+    public KeepsController(KeepService ks)
     {
       _ks = ks;
     }
@@ -36,20 +36,20 @@ namespace amazen_server.Controllers
       }
     }
 
-    // [HttpGet("{id}")]
+    [HttpGet("{id}")]
 
-    // public ActionResult<Keep> GetById(int id)
-    // {
-    //   try
-    //   {
-    //     return Ok(_ks.GetById(id));
-    //   }
-    //   catch (System.Exception err)
-    //   {
+    public ActionResult<Keep> GetById(int id)
+    {
+      try
+      {
+        return Ok(_ks.GetById(id));
+      }
+      catch (System.Exception err)
+      {
 
-    //     return BadRequest(err);
-    //   }
-    // }
+        return BadRequest(err);
+      }
+    }
 
 
     [HttpPost]
@@ -71,35 +71,36 @@ namespace amazen_server.Controllers
       }
     }
 
-    // [HttpDelete("{id}")]
+    [HttpDelete("{id}")]
+    [Authorize]
+    public ActionResult<string> Delete(int id)
+    {
+      try
+      {
+        return Ok(_ks.Delete(id));
+      }
+      catch (System.Exception err)
+      {
 
-    // public ActionResult<string> Delete(int id)
-    // {
-    //   try
-    //   {
-    //     return Ok(_ks.Delete(id));
-    //   }
-    //   catch (System.Exception err)
-    //   {
+        return BadRequest(err);
+      }
+    }
 
-    //     return BadRequest(err);
-    //   }
-    // }
-
-    // [HttpPut("{id}")]
-
-    // public ActionResult<Keep> Edit(int id, [FromBody] Keep editedKeep)
-    // {
-    //   try
-    //   {
-    //     return Ok(_ks.Edit(id, editedKeep));
-    //   }
-    //   catch (System.Exception err)
-    //   {
-
-    //     return BadRequest(err);
-    //   }
-    // }
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Keep>> Edit(int id, [FromBody] Keep editData)
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        //helpful to check in service if creator is whoever is logged in
+        editData.Id = id;
+        return Ok(_ks.Edit(editData, userInfo.Id));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
 
 
   }

@@ -4,14 +4,14 @@
   </header>
   <main>
     <router-view v-slot="{Component}">
-      <transition name="route" mode="out-in">
-        <component :is="Component" />
-      </transition>
+      <!-- <transition name="route" mode="out-in"> -->
+      <component :is="Component" />
+      <!-- </transition> -->
     </router-view>
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
+      Made with 💖 at CodeWorks
     </div>
   </footer>
 </template>

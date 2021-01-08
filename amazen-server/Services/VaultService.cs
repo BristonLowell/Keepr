@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using amazen_server.Models;
 using amazen_server.Repositories;
@@ -19,27 +20,33 @@ namespace amazen_server.Services
       return _vr.GetAll();
     }
 
-    // public Vault GetById(int id)
-    // {
-    //   return _vr.GetById(id);
-    // }
+    public Vault GetById(int id)
+    {
+
+      return _vr.GetById(id);
+
+    }
 
     public Vault Create(Vault newVault)
     {
       return _vr.Create(newVault);
     }
 
-    // public string Delete(int id)
-    // {
-    //   string Deleted = "Vault Deleted";
-    //   bool deletedVault = _vr.Delete(id);
-    //   if (deletedVault)
-    //   {
-    //     return Deleted;
-    //   };
-    //   throw new Exception("Not a valid Vault");
+    public IEnumerable<Vault> GetVaultsByProfile(string profId, string userId)
+    {
+      return _vr.getVaultsByProfile(profId).ToList().FindAll(v => v.CreatorId == userId || v.IsPrivate == false);
+    }
 
-    // }
+    public string Delete(int id)
+    {
+      string Deleted = "Vault Deleted";
+      bool deletedVault = _vr.Delete(id);
+      if (deletedVault)
+      {
+        return Deleted;
+      };
+      throw new Exception("Not a valid Vault");
+    }
 
     // public Vault Edit(int id, Vault editedVault)
     // {

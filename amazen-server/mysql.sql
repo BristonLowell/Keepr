@@ -8,22 +8,24 @@ CREATE TABLE vaults(
   FOREIGN KEY (creatorId)
   REFERENCES profiles(id)
   ON DELETE CASCADE
+  ON UPDATE CASCADE
 )
 
 
 CREATE TABLE keeps(
   id INT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(255),
-  description VARCHAR(255),
-  img VARCHAR(255),
+  name VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  img VARCHAR(1000) NOT NULL,
   views INT NOT NULL,
   shares INT NOT NULL,
   keeps INT NOT NULL,
-  creatorId VARCHAR (255),
+  creatorId VARCHAR (255) NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (creatorId)
   REFERENCES profiles(id)
   ON DELETE CASCADE
+  ON UPDATE CASCADE
 )
 
 CREATE TABLE vaultkeeps(
@@ -32,18 +34,19 @@ CREATE TABLE vaultkeeps(
   vaultId INT NOT NULL,
   keepId INT NOT NULL,
   PRIMARY KEY (id),
+  UNIQUE (vaultId),
 
   FOREIGN KEY (vaultId)
   REFERENCES vaults (id)
-  ON DELETE CASCADE,
+  ON UPDATE CASCADE,
 
   FOREIGN KEY (keepId)
   REFERENCES keeps (id)
-  ON DELETE CASCADE,
+  ON UPDATE CASCADE,
 
   FOREIGN KEY (creatorId)
   REFERENCES profiles(id)
-  ON DELETE CASCADE
+  ON UPDATE CASCADE
 )
 
 CREATE TABLE profiles(

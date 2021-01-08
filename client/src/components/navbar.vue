@@ -82,6 +82,7 @@
 import { AuthService } from '../services/AuthService'
 import { AppState } from '../AppState'
 import { computed, reactive } from 'vue'
+import router from '../router'
 export default {
   name: 'Navbar',
   setup() {
@@ -92,7 +93,8 @@ export default {
       state,
       user: computed(() => AppState.user),
       async login() {
-        AuthService.loginWithPopup()
+        await AuthService.loginWithPopup()
+        router.push({ name: 'Profile' })
       },
       async logout() {
         await AuthService.logout({ returnTo: window.location.origin })

@@ -10,13 +10,15 @@ namespace amazen_server.Controllers
 
   [ApiController]
   [Route("api/[controller]")]
-  public class VaultController : ControllerBase
+  public class VaultsController : ControllerBase
   {
     private readonly VaultService _vs;
+    private readonly VaultKeepService _vks;
 
-    public VaultController(VaultService vs)
+    public VaultsController(VaultService vs, VaultKeepService vks)
     {
       _vs = vs;
+      _vks = vks;
     }
 
 
@@ -35,21 +37,33 @@ namespace amazen_server.Controllers
       }
     }
 
-    // [HttpGet("{id}")]
+    [HttpGet("{id}")]
 
-    // public ActionResult<Vault> GetById(int id)
-    // {
-    //   try
-    //   {
-    //     return Ok(_vs.GetById(id));
-    //   }
-    //   catch (System.Exception err)
-    //   {
+    public ActionResult<Vault> GetById(int id)
+    {
+      try
+      {
+        return Ok(_vs.GetById(id));
+      }
+      catch (System.Exception err)
+      {
 
-    //     return BadRequest(err);
-    //   }
-    // }
+        return BadRequest(err);
+      }
+    }
 
+    [HttpGet("{id}/keeps")]
+    public ActionResult<IEnumerable<Keep>> Get(int id)
+    {
+      try
+      {
+        return Ok(_vks.GetKeepsByVaultId(id));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
 
     [HttpPost]
     [Authorize]
@@ -67,20 +81,20 @@ namespace amazen_server.Controllers
       }
     }
 
-    // [HttpDelete("{id}")]
+    [HttpDelete("{id}")]
 
-    // public ActionResult<string> Delete(int id)
-    // {
-    //   try
-    //   {
-    //     return Ok(_vs.Delete(id));
-    //   }
-    //   catch (System.Exception err)
-    //   {
+    public ActionResult<string> Delete(int id)
+    {
+      try
+      {
+        return Ok(_vs.Delete(id));
+      }
+      catch (System.Exception err)
+      {
 
-    //     return BadRequest(err);
-    //   }
-    // }
+        return BadRequest(err);
+      }
+    }
 
     // [HttpPut("{id}")]
 

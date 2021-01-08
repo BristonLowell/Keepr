@@ -26,11 +26,17 @@ namespace amazen_server.Repositories
     }
 
 
-    // public IEnumerable<Vault> GetAll()
-    // {
-    //   string sql = "SELECT * FROM vaults";
-    //   return _db.Query<Vault>(sql);
-    // }
+    public IEnumerable<Vault> getVaultsByProfile(string profId)
+    {
+      string sql = @"
+        SELECT
+        vault.*,
+        p.*
+        FROM vaults vault
+        JOIN profiles p ON vault.creatorId = p.id
+        WHERE vault.creatorId = @profId; ";
+      return _db.Query<Vault, Profile, Vault>(sql, (vault, profile) => { vault.Creator = profile; return vault; }, new { profId }, splitOn: "id");
+    }
 
     public Vault Create(Vault newVault)
     {
@@ -43,18 +49,18 @@ namespace amazen_server.Repositories
       return newVault;
     }
 
-    // public Vault GetById(int id)
-    // {
-    //   string sql = "SELECT * FROM vaults WHERE id = @Id";
-    //   return _db.QueryFirstOrDefault<Vault>(sql, new { id });
-    // }
+    public Vault GetById(int id)
+    {
+      string sql = "SELECT * FROM vaults WHERE id = @Id AND isPrivate = 0";
+      return _db.QueryFirstOrDefault<Vault>(sql, new { id });
+    }
 
-    // public bool Delete(int id)
-    // {
-    //   string sql = "DELETE FROM vaults WHERE id = @Id LIMIT 1";
-    //   int affectedRows = _db.Execute(sql, new { id });
-    //   return affectedRows > 0;
-    // }
+    public bool Delete(int id)
+    {
+      string sql = "DELETE FROM vaults WHERE id = @Id LIMIT 1";
+      int affectedRows = _db.Execute(sql, new { id });
+      return affectedRows > 0;
+    }
 
     // public Vault Edit(int id, Vault editedVault)
     // {

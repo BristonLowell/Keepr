@@ -62,7 +62,7 @@ namespace amazen_server
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "amazen-server", Version = "v1" });
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "amazen_server", Version = "v1" });
       });
       services.AddScoped<IDbConnection>(x => CreateDbConnection());
       services.AddTransient<VaultService>();
@@ -92,7 +92,7 @@ namespace amazen_server
       {
         app.UseDeveloperExceptionPage();
         app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "amazen-server v1"));
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "amazen_server v1"));
         app.UseCors("CorsDevPolicy");
       }
 
