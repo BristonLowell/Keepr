@@ -1,12 +1,14 @@
 <template>
   <div class="vault-component col-sm-5 col-md-3 col-lg-3 my-2">
-    <div @click.prevent="selectedVault" class=" border border-dark shadow my-2 rounded mx-4 min-height grow">
+    <div @click.prevent="selectedVault" class=" border border-dark my-2 rounded mx-4 min-height grow">
       <div class="row align-items-center">
         <div v-for="keep in vaultKeeps" :key="keep" class="col">
           <img :src="keep.img" class="card-img cover min-height pb-1" alt="">
         </div>
         <div class="card-img-overlay col-12 w-100 d-flex justify-content-start ml-5 align-items-end">
-          <h1>{{ vault.name }}</h1>
+          <h1 class="text-light">
+            {{ vault.name }}
+          </h1>
         </div>
       </div>
     <!-- <img :src="keep.img" class="card-img cover" alt="">

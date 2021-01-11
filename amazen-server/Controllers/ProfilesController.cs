@@ -13,13 +13,13 @@ namespace amazen_server.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class ProfileController : ControllerBase
+  public class ProfilesController : ControllerBase
   {
     private readonly ProfileService _ps;
     private readonly VaultService _vs;
     private readonly KeepService _ks;
 
-    public ProfileController(ProfileService ps, VaultService vs, KeepService ks)
+    public ProfilesController(ProfileService ps, VaultService vs, KeepService ks)
     {
       _ps = ps;
       _vs = vs;

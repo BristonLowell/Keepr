@@ -56,5 +56,20 @@ namespace amazen_server.Services
       }
       return "did not remove succesfully";
     }
+
+    public string DeleteAllKeeps(int id, string userId)
+    {
+      // VaultKeep original = _repo.GetById(id);
+      // if (original == null) { throw new Exception("Bad Id"); }
+      // if (original.CreatorId != userId)
+      // {
+      //   throw new Exception("Not the User : Access Denied");
+      // }
+      if (_repo.RemoveAllKeeps(id))
+      {
+        return "deleted succesfully";
+      }
+      return "did not remove succesfully";
+    }
   }
 }

@@ -9,3 +9,9 @@ export const AppState = reactive({
   activeVault: {},
   vaultKeeps: []
 })
+
+export function clearAppState() {
+  AppState.keeps = {}
+  AppState.vaults = {}
+  AppState.vaultKeeps = {}
+}

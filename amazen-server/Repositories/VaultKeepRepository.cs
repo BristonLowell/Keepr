@@ -53,6 +53,13 @@ namespace amazen_server.Repositories
       return valid > 0;
     }
 
+    public bool RemoveAllKeeps(int id)
+    {
+      string sql = "DELETE from vaultkeeps WHERE keepId = @Id";
+      int valid = _db.Execute(sql, new { id });
+      return valid > 0;
+    }
+
     public VaultKeep GetById(int id)
     {
       string sql = @"SELECT * from vaultkeeps WHERE id = @Id";

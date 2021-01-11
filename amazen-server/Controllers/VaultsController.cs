@@ -1,5 +1,6 @@
 using amazen_server.Models;
 using amazen_server.Services;
+using CodeWorks.Auth0Provider;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -39,11 +40,13 @@ namespace amazen_server.Controllers
 
     [HttpGet("{id}")]
 
-    public ActionResult<Vault> GetById(int id)
+    public async Task<ActionResult<Vault>> GetById(int id)
     {
       try
       {
-        return Ok(_vs.GetById(id));
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+
+        return Ok(_vs.GetById(id, userInfo.Id));
       }
       catch (System.Exception err)
       {
@@ -68,10 +71,12 @@ namespace amazen_server.Controllers
     [HttpPost]
     [Authorize]
 
-    public ActionResult<Vault> Create([FromBody] Vault newVault)
+    public async Task<ActionResult<Vault>> Create([FromBody] Vault newVault)
     {
       try
       {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        newVault.CreatorId = userInfo.Id;
         return Ok(_vs.Create(newVault));
       }
       catch (System.Exception err)

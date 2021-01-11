@@ -68,5 +68,22 @@ namespace amazen_server.Controllers
       }
     }
 
+    [Authorize]
+    [HttpDelete("{id}/all/keeps")]
+    public async Task<ActionResult<string>> DeleteAllKeeps(int id)
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_vks.DeleteAllKeeps(id, userInfo.Id));
+      }
+      catch (System.Exception e)
+      {
+
+        return BadRequest(e.Message);
+
+      }
+    }
+
   }
 }

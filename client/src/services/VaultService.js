@@ -5,7 +5,8 @@ import { AppState } from '../AppState'
 class VaultService {
   async getMyVaults(profileId) {
     try {
-      const res = await api.get('profile/' + profileId + '/vaults')
+      AppState.vaults = []
+      const res = await api.get('profiles/' + profileId + '/vaults')
       AppState.vaults = res.data
       AppState.activeVault = {}
     } catch (error) {

@@ -1,11 +1,11 @@
 <template>
-  <div class="about container-fluid" v-if="vaults.length">
+  <div class="about container-fluid" v-if="keeps.length">
     <div class="row my-5 justify-content-start">
       <div class="col-2 ml-5">
-        <img class="rounded custom-height img-fluid" :src="vaults[0].creator.picture" alt="" />
+        <img class="rounded custom-height img-fluid" :src="keeps[0].creator.picture" alt="" />
       </div>
       <div class="col-6 mt-4">
-        <b class="display-1">{{ vaults[0].creator.email }}</b>
+        <b class="display-1">{{ keeps[0].creator.email }}</b>
         <br>
         <h2><b>Vaults: {{ vaults.length }}</b></h2>
         <h2><b>Keeps: {{ keeps.length }}</b></h2>
@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class="row my-4">
+    <div class="card-columns my-4">
       <KeepComponent v-for="keep in keeps" :key="keep" :keep-prop="keep" />
     </div>
   </div>
@@ -60,5 +60,36 @@ export default {
 <style lang="scss" scoped>
 .custom-height{
 width: 100%;
+}
+@media (min-width: 34em) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media (min-width: 48em) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media (min-width: 62em) {
+    .card-columns {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+}
+
+@media (min-width: 75em) {
+    .card-columns {
+        -webkit-column-count: 5;
+        -moz-column-count: 5;
+        column-count: 5;
+    }
 }
 </style>

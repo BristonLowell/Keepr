@@ -51,7 +51,7 @@ namespace amazen_server.Repositories
 
     public Vault GetById(int id)
     {
-      string sql = "SELECT * FROM vaults WHERE id = @Id AND isPrivate = 0";
+      string sql = "SELECT * FROM vaults WHERE id = @Id";
       return _db.QueryFirstOrDefault<Vault>(sql, new { id });
     }
 

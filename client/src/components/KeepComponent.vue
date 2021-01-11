@@ -1,16 +1,16 @@
 <template>
-  <div class="keep-component card  my-2" style="width:50%;">
-    <div class="border border-dark shadow my-2 rounded mx-4 grow" @click.prevent="updateViews">
+  <div class="keep-component card border border-dark my-2 max-width rounded grow mx-2">
+    <div class="" @click.prevent="updateViews">
       <div id="background" class="row">
         <div class="col-12 text-right">
-          <button class="m-2 close" v-if="profile.id == vault.creatorId && vault" @click.prevent="deleteVaultKeep">
+          <button class="m-2 close" v-if="profile.id == vault.creatorId && vaults.length" @click.prevent="deleteVaultKeep">
             <i class="fas fa-trash text-danger"></i>
           </button>
         </div>
         <div class="col-12" type="button" data-toggle="modal" :data-target="'#keep' + keep.id">
           <img :src="keep.img" class="card-img cover" alt="">
           <div class="card-img-overlay row align-items-end">
-            <div class="col-8">
+            <div class="col-8 text-light">
               <h1>{{ keep.name }}</h1>
             </div>
             <div class="col-4">
@@ -57,20 +57,17 @@
                 </div>
                 <div class="col-8 offset-2 border border-dark my-4"></div>
                 <div class="col-12 d-flex align-items-end mt-5 justify-content-between">
-                  <button class="text-primary border border-primary btn btn-white" data-toggle="collapse" :data-target="'#collapseExample' + keep.id" v-if="profile.id === keep.creatorId">
+                  <button class="text-primary border border-primary btn btn-white" data-toggle="collapse" :data-target="'#collapseExample' + keep.id">
                     ADD TO VAULT
                   </button>
-                  <button class="text-primary border border-primary btn btn-white" data-toggle="collapse" disabled :data-target="'#collapseExample' + keep.id" v-else>
-                    ADD TO VAULT
-                  </button>
+
                   <i class="fas fa-trash text-danger ml-4" @click.prevent="deleteKeep" data-dismiss="modal" v-if="profile.id === keep.creatorId"></i>
                   <i class="fas fa-trash text-dark ml-4" v-else></i>
                   <img :src="keep.creator.picture"
                        class="custom-height rounded ml-5"
                        alt=""
+                       data-dismiss="modal"
                        @click.prevent="viewOtherProfile"
-                       data-toggle="modal"
-                       :data-target="'#keep' + keep.id"
                   >
                   {{ keep.creator.name }}
                 </div>
@@ -142,9 +139,10 @@ export default {
       profile: computed(() => AppState.profile),
       vaults: computed(() => AppState.vaults),
       vault: computed(() => AppState.activeVault),
-      deleteKeep() {
+      async deleteKeep() {
         if (window.confirm('Are you sure?')) {
-          keepService.deleteKeep(props.keepProp.id, AppState.profile.id)
+          await keepService.deleteAllVaultKeeps(props.keepProp.id)
+          await keepService.deleteOneKeep(props.keepProp.id, AppState.profile.id)
         }
       },
       createVaultKeep() {
@@ -186,6 +184,6 @@ export default {
 }
 .grow:hover {
   transform: scale(1.05);
-  box-shadow: 10px 10px black;
 }
+
 </style>

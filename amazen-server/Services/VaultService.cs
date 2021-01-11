@@ -20,11 +20,15 @@ namespace amazen_server.Services
       return _vr.GetAll();
     }
 
-    public Vault GetById(int id)
+    public Vault GetById(int id, string userId)
     {
 
-      return _vr.GetById(id);
-
+      Vault res = _vr.GetById(id);
+      if (res.IsPrivate == true && res.CreatorId != userId)
+      {
+        throw new Exception("Access denied");
+      }
+      return res;
     }
 
     public Vault Create(Vault newVault)

@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <div class="row my-4">
+    <div class="card-columns my-4">
       <KeepComponent v-for="keep in keeps" :key="keep" :keep-prop="keep" />
     </div>
   </div>
@@ -167,7 +167,7 @@
 
 <script>
 import { computed, onMounted, reactive } from 'vue'
-import { AppState } from '../AppState'
+import { AppState, clearAppState } from '../AppState'
 import { profileService } from '../services/ProfileService'
 import { vaultService } from '../services/VaultService'
 import { keepService } from '../services/KeepService'
@@ -190,6 +190,7 @@ export default {
       }
     })
     onMounted(async() => {
+      await clearAppState()
       await profileService.getProfile()
       await vaultService.getMyVaults(AppState.profile.id)
       await keepService.getKeepsByProfile(AppState.profile.id)
@@ -215,5 +216,36 @@ export default {
 
 .custom-height{
 width: 100%;
+}
+@media (min-width: 34em) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media (min-width: 48em) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media (min-width: 62em) {
+    .card-columns {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+}
+
+@media (min-width: 75em) {
+    .card-columns {
+        -webkit-column-count: 5;
+        -moz-column-count: 5;
+        column-count: 5;
+    }
 }
 </style>

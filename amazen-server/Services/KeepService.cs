@@ -48,7 +48,7 @@ namespace amazen_server.Services
     public Keep Edit(Keep editData, string userId)
     {
       Keep original = _kr.GetById(editData.Id);
-      if (original == null) { throw new Exception("Bad Id"); }
+
       if (editData.Name == null)
       {
         editData.Name = original.Name;
@@ -76,6 +76,19 @@ namespace amazen_server.Services
       if (editData.Keeps == 0)
       {
         editData.Keeps = original.Keeps;
+      }
+      if (editData.CreatorId == original.CreatorId)
+      {
+        if (original == null) { throw new Exception("Bad Id"); }
+      }
+      else if (editData.Img != original.Img || editData.Name != original.Name || editData.Description != original.Description)
+      {
+        if (original == null) { throw new Exception("Bad Id"); }
+        throw new Exception("Bad Id");
+      }
+      else
+      {
+        throw new Exception("Not the Creator");
       }
       _kr.Edit(editData);
 

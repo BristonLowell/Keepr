@@ -15,7 +15,7 @@ class KeepService {
 
   async getKeepsByProfile(profileId) {
     try {
-      const res = await api.get('profile/' + profileId + '/keeps')
+      const res = await api.get('profiles/' + profileId + '/keeps')
       AppState.keeps = res.data
     } catch (error) {
       logger.error(error)
@@ -41,12 +41,33 @@ class KeepService {
     }
   }
 
+  async deleteOneKeep(keepId, profileId) {
+    try {
+      await api.delete('keeps/' + keepId)
+      this.getAll()
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
   async updateViews(keepId, updatedData) {
     try {
       await api.put('keeps/' + keepId, updatedData)
     } catch (error) {
       logger.error(error)
     }
+  }
+
+  async deleteAllVaultKeeps(keepId) {
+    try {
+      await api.delete('vaultkeeps/' + keepId + '/all/keeps')
+    } catch (error) {
+      logger.error(error)
+    }
+    // await AppState.keeps.forEach(k => {
+    //   api.delete('vaultkeeps/' + k.vaultKeepId)
+    // })
+    // this.getVaultKeeps(AppState.activeVault.id)
   }
 }
 export const keepService = new KeepService()
