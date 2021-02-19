@@ -10,11 +10,11 @@
         "projectUniqueName": "C:\\source\\codeworks\\Keepr\\amazen-server\\amazen-server.csproj",
         "projectName": "amazen-server",
         "projectPath": "C:\\source\\codeworks\\Keepr\\amazen-server\\amazen-server.csproj",
-        "packagesPath": "C:\\Users\\brist\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\miste\\.nuget\\packages\\",
         "outputPath": "C:\\source\\codeworks\\Keepr\\amazen-server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\brist\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\miste\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -87,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
