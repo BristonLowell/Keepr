@@ -9,7 +9,6 @@ namespace amazen_server.Services
 {
   public class KeepService
   {
-    //NOTE creat private readonly as a reference so I can access the respository easier.
     private readonly KeepRepository _kr;
 
     public KeepService(KeepRepository kr)

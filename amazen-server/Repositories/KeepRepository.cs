@@ -8,7 +8,6 @@ namespace amazen_server.Repositories
 {
   public class KeepRepository
   {
-    //NOTE referencing the database
     private readonly IDbConnection _db;
 
     private readonly string populateCreator = "SELECT keep.*, profile.* FROM keeps keep INNER JOIN profiles profile ON keep.creatorId = profile.id ";
